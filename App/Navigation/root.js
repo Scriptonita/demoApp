@@ -4,7 +4,7 @@ import {createNativeStackNavigator} from 'react-native-screens/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { enableScreens, Screen } from 'react-native-screens';
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { SignInScreen, SignUpScreen } from '../Screens';
+import { AccountScreen, SignInScreen, SignUpScreen } from '../Screens';
 import { screens } from '../Utils/constants';
 
 const session = 'session';
@@ -52,11 +52,12 @@ const SCREENS = {
   },
   Account: {
     title: screens.account,
-    component: (props) => ExampleScreen({...props, title: screens.account, goTo: screens.wallet}),
+    // eslint-disable-next-line react/display-name
+    component: (props) => <AccountScreen {...props} />,
     type: features
   },
-  Wallet: {
-    title: screens.wallet,
+  Change: {
+    title: screens.change,
     component: (props) => ExampleScreen({...props, title: screens.wallet, goTo: screens.transfer}),
     type: features
   },
@@ -82,7 +83,8 @@ const TabNavigator = () => {
               name={name}
               getComponent={() => SCREENS[name].component}
               options={() => ({
-                headerShown: false
+                headerShown: false,
+                title: SCREENS[name].title
               })}
             />
           ))

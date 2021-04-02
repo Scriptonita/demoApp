@@ -20,8 +20,9 @@ export const placeholders = {
 export const screens = {
     signIn: 'SignIn',
     signUp: 'SignUp',
-    account: 'Account',
+    account: 'Cuenta',
+    change: 'Cambio',
     wallet: 'Wallet',
-    transfer: 'Transfer',
+    transfer: 'Transferir',
     appTabNavigator: 'AppTabNavigator',
 }

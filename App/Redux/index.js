@@ -6,6 +6,7 @@ import rootSaga from '../Sagas';
 export const reducers = combineReducers({
     backend: require('./BackendRedux').reducer,
     user: require('./UserRedux').reducer,
+    transactions: require('./TransactionsRedux').reducer,
 });
 
 const createStore = () => {

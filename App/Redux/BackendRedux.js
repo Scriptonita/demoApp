@@ -2,37 +2,16 @@ import {createReducer, createActions} from 'reduxsauce';
 import Immutable from 'seamless-immutable';
 import { v4 as uuidv4 } from 'uuid';
 import { status } from '../Utils/constants';
+import { userList, transactions } from '../Utils/mockData';
 import * as R from 'ramda'
 
-const userList = [
-    {
-        id: uuidv4(),
-        username: 'test1',
-        password: 'test1',
-        balance: 10,
-        token: null,
-    },
-    {
-        id: uuidv4(),
-        username: 'test2',
-        password: 'test2',
-        balance: 5,  
-        token: null,
-    },
-    {
-        id: uuidv4(),
-        username: 'test3',
-        password: 'test3',
-        balance: 15,
-        token: null, 
-    },
-];
-
 /* ------------- Types and Action Creators ------------- */
+const unknown = 'desconocido';
 
 const {Types, Creators} = createActions({
   backendSignUpRequest: ['username', 'password'],
   backendSignInRequest: ['username', 'password'],
+  backendTransactionsRequest: ['userId'],
 });
 
 export const UserTypes = Types;
@@ -42,7 +21,7 @@ export default Creators;
 
 export const INITIAL_STATE = Immutable({
   users: userList,
-  transfers: [],
+  transfers: transactions,
   deposit: [],
   fetching: false,
   response: null,
@@ -123,9 +102,40 @@ export const backendSignInRequest = (state, {username, password}) => {
     })
 }
 
+export const backendTransactionsRequest = (state, {userId}) => {
+    const { transfers, users } = state;
+    // const userHistory = transfers.filter(transaction => transaction.from === userId || transaction.to === userId);
+
+    let userHistory = [];
+
+    transfers.forEach(transfer => {
+        if (transfer.from === userId || transfer.to === userId) {
+            const fromUser = users.find(user => user.id === transfer.from);
+            const toUser = users.find(user => user.id === transfer.to);
+
+            userHistory.push({
+                quantity: transfer.quantity,
+                from: fromUser?.username || unknown,
+                to: toUser?.username || unknown,
+            })
+        }
+    });
+
+    console.log("USERHISTORY: ", userHistory)
+
+    return state.merge({
+        response: {
+            status: status.success,
+            data: userHistory,
+            message: null,
+        }
+    })
+}
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.BACKEND_SIGN_UP_REQUEST]: backendSignUpRequest,
   [Types.BACKEND_SIGN_IN_REQUEST]: backendSignInRequest,
+  [Types.BACKEND_TRANSACTIONS_REQUEST]: backendTransactionsRequest,
 });
