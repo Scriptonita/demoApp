@@ -85,12 +85,6 @@ export const backendSignUpRequest = (state, {username, password}) => {
     })
 }
 
-const removePassword = (user) => {
-    delete user['password']
-
-    return user
-}
-
 /* ------------- SIGN IN REQUEST ------------- */
 
 export const backendSignInRequest = (state, {username, password}) => {
@@ -112,11 +106,17 @@ export const backendSignInRequest = (state, {username, password}) => {
     
     const userUpdated = R.mergeRight(userData, { token: uuidv4()});
     const usersList = users.filter(user => user.username !== R.toLower(username));
+    const data = {
+        id: userUpdated.id,
+        username: userUpdated.username,
+        balance: userUpdated.balance,
+        token: userUpdated.token,
+    }
     
     return state.merge({
         response: {
             status: status.success,
-            data: removePassword(userUpdated),
+            data,
             message: success,
         },
         users: [...usersList, userUpdated],
