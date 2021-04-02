@@ -1,16 +1,19 @@
 import {combineReducers} from 'redux';
 import configureStore from './CreateStore';
+import rootSaga from '../Sagas';
 
 /* ------------- Assemble The Reducers ------------- */
 export const reducers = combineReducers({
-    users: require('./UsersRedux').reducer,
+    backend: require('./BackendRedux').reducer,
+    user: require('./UserRedux').reducer,
 });
 
 const createStore = () => {
   let finalReducers = reducers;
 
   let { store } = configureStore(
-    finalReducers
+    finalReducers,
+    rootSaga,
   );
 
   return store;

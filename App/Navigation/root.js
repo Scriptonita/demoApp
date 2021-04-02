@@ -4,15 +4,12 @@ import {createNativeStackNavigator} from 'react-native-screens/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { enableScreens, Screen } from 'react-native-screens';
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import SingUpScreen from '../Screens/SignUpScreen';
+import { screens } from '../Utils/constants';
 
 const session = 'session';
 const features = 'features';
-const SignIn = 'SignIn';
-const SignUp = 'SignUp';
-const Account = 'Account'
-const Wallet = 'Wallet';
-const Transfer = 'Transfer';
-const AppTabNavigator = 'AppTabNavigator'
+const signUpScreenTitle = 'Registro de usuario';
 
 enableScreens();
 
@@ -26,10 +23,10 @@ const ExampleScreen = ({title, goTo, navigation}) => {
         >
           <Text>ir a {goTo}</Text>
         </TouchableOpacity>
-        {title === SignIn && (
+        {title === screens.signIn && (
           <View>
             <TouchableOpacity
-              onPress={() => navigation.navigate(AppTabNavigator)}
+              onPress={() => navigation.navigate(screens.appTabNavigator)}
             >
               <Text>Go to App</Text>
             </TouchableOpacity>
@@ -42,28 +39,29 @@ const ExampleScreen = ({title, goTo, navigation}) => {
 
 const SCREENS = {
   SignIn : {
-    title: SignIn,
-    component: (props) =>ExampleScreen({...props, title: SignIn, goTo: SignUp}),
+    title: screens.signIn,
+    component: (props) => ExampleScreen({...props, title: screens.signIn, goTo: screens.signUp}),
     type: session
   },
   SignUp: {
-    title: SignUp,
-    component: (props) => ExampleScreen({...props, title: SignUp, goTo: SignIn}),
+    title: signUpScreenTitle,
+    // eslint-disable-next-line react/display-name
+    component: (props) => <SingUpScreen {...props} />,
     type: session
   },
   Account: {
-    title: Account,
-    component: (props) => ExampleScreen({...props, title: Account, goTo: Wallet}),
+    title: screens.account,
+    component: (props) => ExampleScreen({...props, title: screens.account, goTo: screens.wallet}),
     type: features
   },
   Wallet: {
-    title: Wallet,
-    component: (props) => ExampleScreen({...props, title: Wallet, goTo: Transfer}),
+    title: screens.wallet,
+    component: (props) => ExampleScreen({...props, title: screens.wallet, goTo: screens.transfer}),
     type: features
   },
   Transfer: {
-    title: Transfer,
-    component: (props) => ExampleScreen({...props, title: Transfer, goTo: SignIn}),
+    title: screens.transfer,
+    component: (props) => ExampleScreen({...props, title: screens.transfer, goTo: screens.signIn}),
     type: features
   },
 }
@@ -105,13 +103,15 @@ const RootNavigator = () => {
               name={name}
               getComponent={() => SCREENS[name].component}
               options={{
-                headerShown: false,
+                headerShown: name === screens.signUp,
+                headerBackTitle: 'Volver',
+                headerTitle: SCREENS[name].title
               }}
             />
           ))
         }
         <Stack.Screen
-          name={AppTabNavigator}
+          name={screens.appTabNavigator}
           component={TabNavigator}
           options={{
             headerShown: false,
