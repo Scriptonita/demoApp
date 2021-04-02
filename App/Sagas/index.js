@@ -6,13 +6,16 @@ import {UserTypes} from '../Redux/UserRedux';
 
 /* ------------- Sagas ------------- */
 
-import {signUp} from './UserSagas';
+import {signIn, signUp} from './UserSagas';
 
 /* ------------- Connect Types To Sagas ------------- */
 
 export default function* root() {
   yield all([
-    // SignUp
+    // SIGN IN
+    takeLatest(UserTypes.SIGN_IN_REQUEST, signIn),
+
+    // SIGN UP
     takeLatest(UserTypes.SIGN_UP_REQUEST, signUp),
   ]);
 }

@@ -20,3 +20,22 @@ export function* signUp(action) {
     yield put(UserActions.signUpFailure(error))
   }
 }
+
+export function* signIn(action) {
+  const {username, password} = action;
+
+  yield put(BackendActions.backendSignInRequest(username, password));
+
+  try {
+    const {status , message, data} = yield select(BackendSelectors.getResponse);
+
+    if (status === statusType.success) {
+      yield put(UserActions.signInSuccess(data, message))
+    } else {
+      yield put(UserActions.signInFailure(message))
+    }
+  } catch (error) {
+    yield put(UserActions.signInFailure(error))
+  }
+}
+

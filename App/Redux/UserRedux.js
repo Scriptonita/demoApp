@@ -8,6 +8,9 @@ const {Types, Creators} = createActions({
   signUpSuccess: ['message'],
   signUpFailure: ['error'],
   clearMessage: null,
+  signInRequest: ['username', 'password'],
+  signInSuccess: ['data', 'message'],
+  signInFailure: ['error'],
 });
 
 export const UserTypes = Types;
@@ -57,6 +60,28 @@ export const clearMessage= (state, { error }) => {
   return state.merge({ message: null, error: null })
 };
 
+/* ------------- SIGN IN REQUEST ------------- */
+
+// eslint-disable-next-line no-unused-vars
+export const signInRequest = (state, action) => {
+  return state.merge({ 
+    data: null,
+    fetching: true, 
+    payload: null,
+    error: null, 
+    logged: false, 
+    message: null
+  })
+};
+
+export const signInSuccess = (state, { data, message }) => {
+  return state.merge({ fetching: false, data, message, logged: true })
+};
+
+export const signInFailure = (state, { error }) => {
+  return state.merge({ fetching: false, error })
+};
+
 
 /* ------------- Hookup Reducers To Types ------------- */
 
@@ -65,4 +90,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.SIGN_UP_SUCCESS]: signUpSuccess,
   [Types.SIGN_UP_FAILURE]: signUpFailure,
   [Types.CLEAR_MESSAGE]: clearMessage,
+  [Types.SIGN_IN_REQUEST]: signInRequest,
+  [Types.SIGN_IN_SUCCESS]: signInSuccess,
+  [Types.SIGN_IN_FAILURE]: signInFailure,
 });

@@ -4,7 +4,7 @@ import {createNativeStackNavigator} from 'react-native-screens/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { enableScreens, Screen } from 'react-native-screens';
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import SingUpScreen from '../Screens/SignUpScreen';
+import { SignInScreen, SignUpScreen } from '../Screens';
 import { screens } from '../Utils/constants';
 
 const session = 'session';
@@ -40,13 +40,14 @@ const ExampleScreen = ({title, goTo, navigation}) => {
 const SCREENS = {
   SignIn : {
     title: screens.signIn,
-    component: (props) => ExampleScreen({...props, title: screens.signIn, goTo: screens.signUp}),
+    // eslint-disable-next-line react/display-name
+    component: (props) => <SignInScreen {...props} />,
     type: session
   },
   SignUp: {
     title: signUpScreenTitle,
     // eslint-disable-next-line react/display-name
-    component: (props) => <SingUpScreen {...props} />,
+    component: (props) => <SignUpScreen {...props} />,
     type: session
   },
   Account: {
