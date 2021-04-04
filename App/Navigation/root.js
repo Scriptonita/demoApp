@@ -4,7 +4,7 @@ import {createNativeStackNavigator} from 'react-native-screens/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { enableScreens, Screen } from 'react-native-screens';
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { AccountScreen, SignInScreen, SignUpScreen } from '../Screens';
+import { AccountScreen, SignInScreen, SignUpScreen, TransfersScreen } from '../Screens';
 import { screens } from '../Utils/constants';
 
 const session = 'session';
@@ -63,7 +63,8 @@ const SCREENS = {
   },
   Transfer: {
     title: screens.transfer,
-    component: (props) => ExampleScreen({...props, title: screens.transfer, goTo: screens.signIn}),
+    // eslint-disable-next-line react/display-name
+    component: (props) => <TransfersScreen {...props} />,
     type: features
   },
 }

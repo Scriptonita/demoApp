@@ -11,6 +11,7 @@ const {Types, Creators} = createActions({
   signInRequest: ['username', 'password'],
   signInSuccess: ['data', 'message'],
   signInFailure: ['error'],
+  updateUserData: ['data'],
 });
 
 export const UserTypes = Types;
@@ -82,6 +83,12 @@ export const signInFailure = (state, { error }) => {
   return state.merge({ fetching: false, error })
 };
 
+/* ------------- UPDATE USER DATA ------------- */
+
+export const updateUserData = (state, { data }) => {
+  return state.merge({ data })
+}
+
 
 /* ------------- Hookup Reducers To Types ------------- */
 
@@ -93,4 +100,5 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.SIGN_IN_REQUEST]: signInRequest,
   [Types.SIGN_IN_SUCCESS]: signInSuccess,
   [Types.SIGN_IN_FAILURE]: signInFailure,
+  [Types.UPDATE_USER_DATA]: updateUserData,
 });

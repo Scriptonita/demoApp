@@ -9,12 +9,15 @@ export const labels = {
     username: "Nombre de usuario",
     password: "Contraseña",
     confirmPassword: "Confirme contraseña",
+    quantity: "Cantidad",
 }
 
 export const placeholders = {
     username: "Su nombre",
     password: "Su contraseña",
     confirmPassword: "Vuelva a escribir su contraseña",
+    usertToTransfer: "Nombre",
+    quantity: "Cantidad a enviar"
 }
 
 export const screens = {

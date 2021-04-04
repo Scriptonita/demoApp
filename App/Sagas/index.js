@@ -8,7 +8,7 @@ import { TransactionsTypes } from '../Redux/TransactionsRedux';
 /* ------------- Sagas ------------- */
 
 import { signIn, signUp } from './UserSagas';
-import { getTransactions } from './TransactionsSagas';
+import { getTransactions, makeTransaction } from './TransactionsSagas';
 
 /* ------------- Connect Types To Sagas ------------- */
 
@@ -22,5 +22,6 @@ export default function* root() {
 
     // TRANSACTIONS
     takeLatest(TransactionsTypes.GET_TRANSACTIONS_REQUEST, getTransactions),
+    takeLatest(TransactionsTypes.MAKE_TRANSACTION_REQUEST, makeTransaction)
   ]);
 }

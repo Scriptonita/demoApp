@@ -12,6 +12,7 @@ const {Types, Creators} = createActions({
   backendSignUpRequest: ['username', 'password'],
   backendSignInRequest: ['username', 'password'],
   backendTransactionsRequest: ['userId'],
+  backendMakeTransferRequest: ['userId', 'toUsername', 'quantity'],
 });
 
 export const UserTypes = Types;
@@ -102,6 +103,8 @@ export const backendSignInRequest = (state, {username, password}) => {
     })
 }
 
+/* ------------- GET TRANSACTIONS REQUEST ------------- */
+
 export const backendTransactionsRequest = (state, {userId}) => {
     const { transfers, users } = state;
     // const userHistory = transfers.filter(transaction => transaction.from === userId || transaction.to === userId);
@@ -132,10 +135,53 @@ export const backendTransactionsRequest = (state, {userId}) => {
     })
 }
 
+/* -------------MAKE TRANSACTION REQUEST ------------- */
+
+export const backendMakeTransferRequest = (state, action) => {
+    const {userId, toUsername, quantity} = action;
+    const {users, transfers} = state;
+    const error = 'El usuario indicado no existe';
+    const success = 'La transferencia se ha realizado con éxito';
+    
+    const userToSendTransfer = users.find(user => user.username === R.toLower(toUsername));
+
+    if (!userToSendTransfer) {
+        return state.merge({
+            response: {
+                status: status.error,
+                data: null,
+                message: error,
+            }
+        })
+    }
+
+    const userHowMakeTransfer = users.find(user => user.id === userId);
+    const userToSendTransferUpdated = R.mergeRight(userToSendTransfer, { balance: parseFloat(userToSendTransfer.balance) + parseFloat(quantity) });
+    const userHowMakeTransferUpdated = R.mergeRight(userHowMakeTransfer, { balance: parseFloat(userHowMakeTransfer.balance) - parseFloat(quantity) });
+    const newTransfer = {
+        id: uuidv4(),
+        from: userHowMakeTransfer.id,
+        to: userToSendTransfer.id,
+        quantity,
+    };
+    const userList = users.filter(user => user.id !== userHowMakeTransfer.id && user.id !== userToSendTransfer.id);
+
+    return state.merge({
+        response: {
+            status: status.success,
+            data: userHowMakeTransferUpdated,
+            message: success,
+        },
+        transfers: [ ...transfers, newTransfer ],
+        users: [...userList, userHowMakeTransferUpdated, userToSendTransferUpdated],
+    });
+}
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.BACKEND_SIGN_UP_REQUEST]: backendSignUpRequest,
   [Types.BACKEND_SIGN_IN_REQUEST]: backendSignInRequest,
   [Types.BACKEND_TRANSACTIONS_REQUEST]: backendTransactionsRequest,
+  [Types.BACKEND_MAKE_TRANSFER_REQUEST]: backendMakeTransferRequest,
 });
