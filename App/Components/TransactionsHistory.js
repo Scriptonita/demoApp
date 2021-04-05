@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Body, Card, CardItem, Item, Text } from 'native-base';
+import { Card, CardItem, Item, Text } from 'native-base';
 import { connect } from 'react-redux';
 import { FlatList, StyleSheet, View } from 'react-native';
 import TransactionsActions from '../Redux/TransactionsRedux';
@@ -40,18 +40,19 @@ const AccountData = ({getTransactions, userId, transactions}) => {
                 <Text>Estos han sido tus movimientos</Text>
             </CardItem>
             <CardItem>
-                <Body>
-                    {
-                        transactions ?
-                            <FlatList 
-                                data={transactions}
-                                renderItem={({item}) => renderItem(item)}
-                                keyExtractor={(item, index) => `${index}-${item?.id?.toString()}`}
-                            />
-                            :
-                            <Text>No hay datos disponibles</Text>
-                    }
-                </Body>
+                {
+                    transactions ?
+                        <FlatList 
+                            data={transactions}
+                            renderItem={({item}) => renderItem(item)}
+                            keyExtractor={(item, index) => `${index}-${item?.id?.toString()}`}
+                        />
+                        :
+                        <Text>No hay datos disponibles</Text>
+                }
+                 <Item style={styles.movement}>
+        </Item>
+                
             </CardItem>
         </Card>
     )

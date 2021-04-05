@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Body, Card, CardItem, Item, Text } from 'native-base';
+import { Card, CardItem, Item, Text } from 'native-base';
 import { connect } from 'react-redux';
 import { FlatList, StyleSheet, View } from 'react-native';
 import DepositsActions from '../Redux/DepositsRedux';
@@ -8,6 +8,7 @@ import { depositTypes } from '../Utils/constants';
 const styles = StyleSheet.create({
     card: {
         flex: 1,
+        marginTop: 20,
     },
     header: {
         paddingBottom: 5,
@@ -40,18 +41,16 @@ const AccountData = ({balance, getDeposits, userId, deposits}) => {
                 <Text>Estos han sido tus movimientos</Text>
             </CardItem>
             <CardItem>
-                <Body>
-                    {
-                        deposits ?
-                            <FlatList 
-                                data={deposits}
-                                renderItem={({item}) => renderItem(item)}
-                                keyExtractor={(item, index) => `${index}-${item?.id?.toString()}`}
-                            />
-                            :
-                            <Text>No hay datos disponibles</Text>
-                    }
-                </Body>
+                {
+                    deposits ?
+                        <FlatList 
+                            data={deposits}
+                            renderItem={({item}) => renderItem(item)}
+                            keyExtractor={(item, index) => `${index}-${item?.id?.toString()}`}
+                        />
+                        :
+                        <Text>No hay datos disponibles</Text>
+                }
             </CardItem>
         </Card>
     )
