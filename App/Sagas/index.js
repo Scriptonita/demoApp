@@ -2,6 +2,7 @@ import { takeLatest, all } from 'redux-saga/effects';
 
 /* ------------- Types ------------- */
 
+import { DepositsTypes } from '../Redux/DepositsRedux';
 import { UserTypes } from '../Redux/UserRedux';
 import { TransactionsTypes } from '../Redux/TransactionsRedux';
 
@@ -9,6 +10,7 @@ import { TransactionsTypes } from '../Redux/TransactionsRedux';
 
 import { signIn, signUp } from './UserSagas';
 import { getTransactions, makeTransaction } from './TransactionsSagas';
+import { getDeposits, makeDeposit } from './DepositsSagas';
 
 /* ------------- Connect Types To Sagas ------------- */
 
@@ -22,6 +24,10 @@ export default function* root() {
 
     // TRANSACTIONS
     takeLatest(TransactionsTypes.GET_TRANSACTIONS_REQUEST, getTransactions),
-    takeLatest(TransactionsTypes.MAKE_TRANSACTION_REQUEST, makeTransaction)
+    takeLatest(TransactionsTypes.MAKE_TRANSACTION_REQUEST, makeTransaction),
+
+    // DEPOSITS
+    takeLatest(DepositsTypes.GET_DEPOSITS_REQUEST, getDeposits),
+    takeLatest(DepositsTypes.MAKE_DEPOSIT_REQUEST, makeDeposit),
   ]);
 }

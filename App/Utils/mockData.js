@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import { depositTypes } from './constants';
 
 export const userList = [
     {
@@ -57,4 +58,25 @@ export const transactions = [
         to: userList[0].id,
         quantity: 3
     },
+];
+
+export const deposits = [
+    {
+        id: uuidv4(),
+        userId: userList[0].id,
+        quantity: 8,
+        type: depositTypes.deposit,
+    },
+    {
+        id: uuidv4(),
+        userId: userList[1].id,
+        quantity: 9,
+        type: depositTypes.deposit,
+    },
+    {
+        id: uuidv4(),
+        userId: userList[2].id,
+        quantity: 13,
+        type: depositTypes.deposit,
+    }
 ];

@@ -4,7 +4,7 @@ import {createNativeStackNavigator} from 'react-native-screens/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { enableScreens, Screen } from 'react-native-screens';
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { AccountScreen, SignInScreen, SignUpScreen, TransfersScreen } from '../Screens';
+import { AccountScreen, ChangeScreen, SignInScreen, SignUpScreen, TransfersScreen } from '../Screens';
 import { screens } from '../Utils/constants';
 
 const session = 'session';
@@ -12,30 +12,6 @@ const features = 'features';
 const signUpScreenTitle = 'Registro de usuario';
 
 enableScreens();
-
-const ExampleScreen = ({title, goTo, navigation}) => {
-  return (
-    <Screen style={styles.container}>
-      <SafeAreaView>
-        <View><Text>{title}</Text></View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate(goTo)}
-        >
-          <Text>ir a {goTo}</Text>
-        </TouchableOpacity>
-        {title === screens.signIn && (
-          <View>
-            <TouchableOpacity
-              onPress={() => navigation.navigate(screens.appTabNavigator)}
-            >
-              <Text>Go to App</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      </SafeAreaView>
-    </Screen>
-  );
-}
 
 const SCREENS = {
   SignIn : {
@@ -58,7 +34,8 @@ const SCREENS = {
   },
   Change: {
     title: screens.change,
-    component: (props) => ExampleScreen({...props, title: screens.wallet, goTo: screens.transfer}),
+    // eslint-disable-next-line react/display-name
+    component: (props) => <ChangeScreen {...props} />,
     type: features
   },
   Transfer: {

@@ -5,6 +5,7 @@ import rootSaga from '../Sagas';
 /* ------------- Assemble The Reducers ------------- */
 export const reducers = combineReducers({
     backend: require('./BackendRedux').reducer,
+    deposits: require('./DepositsRedux').reducer,
     user: require('./UserRedux').reducer,
     transactions: require('./TransactionsRedux').reducer,
 });

@@ -17,7 +17,8 @@ export const placeholders = {
     password: "Su contraseña",
     confirmPassword: "Vuelva a escribir su contraseña",
     usertToTransfer: "Nombre",
-    quantity: "Cantidad a enviar"
+    quantity: "Cantidad a enviar",
+    desiredQuantity: "Cantidad deseada",
 }
 
 export const screens = {
@@ -28,4 +29,9 @@ export const screens = {
     wallet: 'Wallet',
     transfer: 'Transferir',
     appTabNavigator: 'AppTabNavigator',
+}
+
+export const depositTypes = {
+    deposit: 'deposit',
+    withdraw: 'withdraw'
 }

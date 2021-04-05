@@ -2,7 +2,8 @@ import {createReducer, createActions} from 'reduxsauce';
 import Immutable from 'seamless-immutable';
 import { v4 as uuidv4 } from 'uuid';
 import { status } from '../Utils/constants';
-import { userList, transactions } from '../Utils/mockData';
+import { deposits, userList, transactions } from '../Utils/mockData';
+import { depositTypes } from '../Utils/constants';
 import * as R from 'ramda'
 
 /* ------------- Types and Action Creators ------------- */
@@ -13,6 +14,8 @@ const {Types, Creators} = createActions({
   backendSignInRequest: ['username', 'password'],
   backendTransactionsRequest: ['userId'],
   backendMakeTransferRequest: ['userId', 'toUsername', 'quantity'],
+  backendMakeDepositRequest: ['userId', 'quantity', 'depositType'],
+  backendDepositsRequest: ['userId'],
 });
 
 export const UserTypes = Types;
@@ -23,7 +26,7 @@ export default Creators;
 export const INITIAL_STATE = Immutable({
   users: userList,
   transfers: transactions,
-  deposit: [],
+  deposits,
   fetching: false,
   response: null,
 });
@@ -107,7 +110,6 @@ export const backendSignInRequest = (state, {username, password}) => {
 
 export const backendTransactionsRequest = (state, {userId}) => {
     const { transfers, users } = state;
-    // const userHistory = transfers.filter(transaction => transaction.from === userId || transaction.to === userId);
 
     let userHistory = [];
 
@@ -123,8 +125,6 @@ export const backendTransactionsRequest = (state, {userId}) => {
             })
         }
     });
-
-    console.log("USERHISTORY: ", userHistory)
 
     return state.merge({
         response: {
@@ -177,6 +177,63 @@ export const backendMakeTransferRequest = (state, action) => {
     });
 }
 
+/* ------------- MAKE A DEPOSIT REQUEST ------------- */
+
+export const backendMakeDepositRequest = (state, {userId, quantity, depositType}) => {
+    const { deposits, users } = state;
+    const success = `El ${depositType === depositTypes.deposit ? 'depósito' : 'retiro'} se ha realizado con éxito`;
+
+    const user = users.find(user => user.id === userId);
+    const usersList = users.filter(user => user.id !== userId);
+
+    const newDeposit = {
+        id: uuidv4(),
+        userId,
+        quantity,
+        type: depositType,
+    };
+
+    const balance = depositType === depositTypes.deposit ? 
+        parseFloat(user.balance) + parseFloat(quantity)
+        :
+        parseFloat(user.balance) - parseFloat(quantity);
+
+    const userUpdated = R.mergeRight(user, { balance });
+
+    return state.merge({
+        response: {
+            status: status.success,
+            data: userUpdated,
+            message: success,
+        },
+        users: [...usersList, userUpdated],
+        deposits: [...deposits, newDeposit],
+    });
+}
+
+/* ------------- GET DEPOSIT HISTORY REQUEST ------------- */
+
+
+export const backendDepositsRequest = (state, {userId}) => {
+    const { deposits } = state;
+
+    let userHistory = [];
+
+    deposits.forEach(deposit => {
+        if (deposit.userId === userId) {
+            userHistory.push(deposit)
+        }
+    });
+
+    return state.merge({
+        response: {
+            status: status.success,
+            data: userHistory,
+            message: null,
+        }
+    })
+}
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -184,4 +241,6 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.BACKEND_SIGN_IN_REQUEST]: backendSignInRequest,
   [Types.BACKEND_TRANSACTIONS_REQUEST]: backendTransactionsRequest,
   [Types.BACKEND_MAKE_TRANSFER_REQUEST]: backendMakeTransferRequest,
+  [Types.BACKEND_MAKE_DEPOSIT_REQUEST]: backendMakeDepositRequest,
+  [Types.BACKEND_DEPOSITS_REQUEST]: backendDepositsRequest,
 });
