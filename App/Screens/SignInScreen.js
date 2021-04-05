@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Body, Button, Card, CardItem, Container, Input, Item, Form, Label, Text, Toast } from 'native-base';
 import { connect } from 'react-redux'
 import Screen from '../Components/Screen';
@@ -9,6 +9,12 @@ import { ok, labels, placeholders, screens, status } from '../Utils/constants';
 const styles = StyleSheet.create({
     form: {
         width: '100%'
+    },
+    singUp: {
+        flexDirection: 'row',
+    },
+    signUpButton: {
+        color: 'blue'
     },
     footer: {
         flexDirection: 'column',
@@ -83,13 +89,14 @@ const SignInScreen = ({ clearMessage, error, message, navigation, signIn }) => {
                         </Body>
                     </CardItem>
                     <CardItem footer style={styles.footer}>
-                        <Text>¿No tienes cuenta? 
+                        <View style={styles.singUp}>
+                            <Text style={{lineHeight: null}}>¿No tienes cuenta?  </Text>
                             <TouchableOpacity
                                 onPress={() => navigation.navigate(screens.signUp)}
                             >
-                                <Text>Registrate</Text>
+                                <Text style={styles.signUpButton}>Registrate</Text>
                             </TouchableOpacity>
-                        </Text>
+                        </View>                     
                         <Button
                             disabled={!(username && password)}
                             onPress={() => signIn(username, password)}
