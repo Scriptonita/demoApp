@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const AccountData = ({getTransactions, userId, transactions}) => {
+export const TransactionsHistory = ({getTransactions, userId, transactions}) => {
     useEffect(() => {
         if (userId) {
             getTransactions(userId)
@@ -49,10 +49,7 @@ const AccountData = ({getTransactions, userId, transactions}) => {
                         />
                         :
                         <Text>No hay datos disponibles</Text>
-                }
-                 <Item style={styles.movement}>
-        </Item>
-                
+                } 
             </CardItem>
         </Card>
     )
@@ -71,4 +68,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AccountData);
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionsHistory);
