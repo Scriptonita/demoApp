@@ -2,7 +2,7 @@ import React from 'react';
 import { Body, Card, CardItem, Text } from 'native-base';
 import { connect } from 'react-redux';
 
-const AccountData = ({balance, username}) => {
+export const AccountData = ({balance, username}) => {
 
     return (
         <Card>
