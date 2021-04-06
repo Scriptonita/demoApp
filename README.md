@@ -23,6 +23,13 @@ Project created with Expo-cli
     yarn android
 ```
 
+## Tests
+
+```
+    yarn test
+```
+
+
 Known error:
 * There is an error in Tabs styleTab prop.
   
