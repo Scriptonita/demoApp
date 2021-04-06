@@ -74,6 +74,7 @@ const SignInScreen = ({ clearMessage, error, message, navigation, signIn }) => {
                                         placeholder={placeholders.username} 
                                         onChangeText={(text) => setUsername(text)}
                                         value={username}
+                                        testID='signInUsernameInput'
                                     />
                                 </Item>
                                 <Item stackedLabel>
@@ -83,6 +84,7 @@ const SignInScreen = ({ clearMessage, error, message, navigation, signIn }) => {
                                         onChangeText={(text) => setPassword(text)}
                                         secureTextEntry={true}
                                         value={password}
+                                        testID='signInPasswordInput'
                                     />
                                 </Item>
                             </Form>
@@ -93,6 +95,7 @@ const SignInScreen = ({ clearMessage, error, message, navigation, signIn }) => {
                             <Text style={{lineHeight: null}}>¿No tienes cuenta?  </Text>
                             <TouchableOpacity
                                 onPress={() => navigation.navigate(screens.signUp)}
+                                testID='signInGoToSignUpButton'
                             >
                                 <Text style={styles.signUpButton}>Registrate</Text>
                             </TouchableOpacity>
@@ -101,6 +104,7 @@ const SignInScreen = ({ clearMessage, error, message, navigation, signIn }) => {
                             disabled={!(username && password)}
                             onPress={() => signIn(username, password)}
                             style={styles.button}
+                            testID='signInSignInButton'
                         >
                             <Text>Iniciar Sesión</Text>
                         </Button>

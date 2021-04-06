@@ -41,17 +41,23 @@
     "babel-jest": "~25.2.6",
     "eslint": "^7.23.0",
     "eslint-plugin-react": "^7.23.1",
-    "identity-obj-proxy": "^3.0.0",
     "jest": "~25.2.6",
     "react-test-renderer": "~16.13.1"
   },
   "jest": {
     "preset": "react-native",
-    "setupFiles": [
-      "./node_modules/react-native-gesture-handler/jestSetup.js"
-    ],
+    "cacheDirectory": "./cache",
+    "moduleNameMapper": {
+      "^.+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "identity-obj-proxy"
+    },
     "setupFilesAfterEnv": [
       "@testing-library/jest-native/extend-expect"
+    ],
+    "transform": {
+      "^.+\\.(js)$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
+    },
+    "setupFiles": [
+      "./node_modules/react-native-gesture-handler/jestSetup.js"
     ],
     "testMatch": [
       "<rootDir>/__tests__/**/*.js",
@@ -62,12 +68,6 @@
       "<rootDir>/Tests/Setup.js",
       "<rootDir>/Tests/Sagas/Mocks/"
     ],
-    "moduleNameMapper": {
-      "^.+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "identity-obj-proxy"
-    },
-    "transform": {
-      "^.+\\.(js)$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
-    },
     "transformIgnorePatterns": [
       "/node_modules/(?!native-base)/"
     ]

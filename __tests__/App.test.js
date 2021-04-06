@@ -1,6 +1,6 @@
 import 'react-native';
 import React from 'react';
-import { findByText, render } from '@testing-library/react-native'
+import { render } from '@testing-library/react-native'
 import App from '../App';
 
 describe('App', () => {
