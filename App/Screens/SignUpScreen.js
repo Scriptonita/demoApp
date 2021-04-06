@@ -53,7 +53,7 @@ const SignUpScreen = ({ clearMessage, error, message, navigation, signUp }) => {
             <Container>
                 <Card >
                     <CardItem header>
-                        <Text>Rellene los siguiente datos de usuario</Text>
+                        <Text>Rellene los siguientes datos de usuario</Text>
                     </CardItem>
                     <CardItem>
                         <Body> 
@@ -64,6 +64,7 @@ const SignUpScreen = ({ clearMessage, error, message, navigation, signUp }) => {
                                         placeholder={placeholders.username} 
                                         onChangeText={(text) => setUsername(text)}
                                         value={username}
+                                        testID='signUpUsernameInput'
                                     />
                                 </Item>
                                 <Item stackedLabel>
@@ -73,6 +74,7 @@ const SignUpScreen = ({ clearMessage, error, message, navigation, signUp }) => {
                                         onChangeText={(text) => setPassword(text)}
                                         secureTextEntry={true}
                                         value={password}
+                                        testID='signUpPasswordInput'
                                     />
                                 </Item>
                                 <Item stackedLabel>
@@ -83,6 +85,8 @@ const SignUpScreen = ({ clearMessage, error, message, navigation, signUp }) => {
                                         secureTextEntry={true}
                                         style={(confirmPassword !== password ? {color: 'red'} : {})}
                                         value={confirmPassword}
+                                        testID='signUpConfirmPasswordInput'
+
                                     />
                                 </Item>
                             </Form>
@@ -92,6 +96,7 @@ const SignUpScreen = ({ clearMessage, error, message, navigation, signUp }) => {
                         <Button
                             disabled={!(username && password && (password === confirmPassword))}
                             onPress={() => signUp(username, password)}
+                            testID='signUpSignUpButton'
                         >
                             <Text>Registrar</Text>
                         </Button>
