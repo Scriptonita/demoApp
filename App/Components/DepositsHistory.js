@@ -42,14 +42,17 @@ const AccountData = ({balance, getDeposits, userId, deposits}) => {
             </CardItem>
             <CardItem>
                 {
-                    deposits ?
-                        <FlatList 
-                            data={deposits}
-                            renderItem={({item}) => renderItem(item)}
-                            keyExtractor={(item, index) => `${index}-${item?.id?.toString()}`}
-                        />
+                    deposits ? 
+                        deposits.length > 0 ?
+                            <FlatList 
+                                data={deposits}
+                                renderItem={({item}) => renderItem(item)}
+                                keyExtractor={(item, index) => `${index}-${item?.id?.toString()}`}
+                            />
+                            :
+                            <Text>No has realizado ningún depósito o retiro</Text>
                         :
-                        <Text>No hay datos disponibles</Text>
+                        <Text>Lo sentimos, no hay datos disponibles</Text>
                 }
             </CardItem>
         </Card>

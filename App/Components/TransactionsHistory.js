@@ -41,14 +41,18 @@ export const TransactionsHistory = ({getTransactions, userId, transactions}) => 
             </CardItem>
             <CardItem>
                 {
-                    transactions ?
-                        <FlatList 
-                            data={transactions}
-                            renderItem={({item}) => renderItem(item)}
-                            keyExtractor={(item, index) => `${index}-${item?.id?.toString()}`}
-                        />
+                    transactions ? 
+                        transactions.length > 0 ?
+                            <FlatList 
+                                data={transactions}
+                                renderItem={({item}) => renderItem(item)}
+                                keyExtractor={(item, index) => `${index}-${item?.id?.toString()}`}
+                            />
+                            :
+                            <Text>No has participado en ninguna transacción</Text>
                         :
-                        <Text>No hay datos disponibles</Text>
+                        <Text>Lo sentimos, no hay datos disponibles</Text>
+
                 } 
             </CardItem>
         </Card>
