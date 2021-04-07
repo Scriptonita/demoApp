@@ -1,5 +1,6 @@
 import {createReducer, createActions} from 'reduxsauce';
 import Immutable from 'seamless-immutable';
+import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import { status } from '../Utils/constants';
 import { deposits, userList, transactions } from '../Utils/mockData';
