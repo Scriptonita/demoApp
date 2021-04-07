@@ -38,8 +38,6 @@ There are 3 predefined users that you can use to test the app.
 * username: Test3 // password: test3
 
 Known error:
+(Android and iOS)
 * There is an error in Tabs styleTab prop.
   
-TODO:
-* Logout
-* Test
