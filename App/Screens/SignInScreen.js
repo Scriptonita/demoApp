@@ -10,6 +10,11 @@ const styles = StyleSheet.create({
     form: {
         width: '100%'
     },
+    input: {
+        padding: 0,
+        paddingLeft: 5,
+        textDecorationLine: 'none' 
+    },
     singUp: {
         flexDirection: 'row',
     },
@@ -75,6 +80,7 @@ const SignInScreen = ({ clearMessage, error, message, navigation, signIn }) => {
                                         onChangeText={(text) => setUsername(text)}
                                         value={username}
                                         testID='signInUsernameInput'
+                                        style={styles.input}
                                     />
                                 </Item>
                                 <Item stackedLabel>
@@ -85,6 +91,7 @@ const SignInScreen = ({ clearMessage, error, message, navigation, signIn }) => {
                                         secureTextEntry={true}
                                         value={password}
                                         testID='signInPasswordInput'
+                                        style={styles.input}
                                     />
                                 </Item>
                             </Form>

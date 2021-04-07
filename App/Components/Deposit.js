@@ -14,6 +14,10 @@ const styles = StyleSheet.create({
         width: '100%',
         marginTop: 20
     },
+    input: {
+        padding: 0,
+        paddingLeft: 5
+    },
     footer: {
         flexDirection: 'column',
         alignItems: 'flex-end'
@@ -82,7 +86,7 @@ const Deposit = ({balance, clearMessage, error, makeDeposit, message, type, user
                                 placeholder={placeholders.desiredQuantity} 
                                 onChangeText={(text) => setQuantity(text)}
                                 value={quantity}
-                                style={checkValidQuantity() ? { color: 'black' } : { color: 'red' }}
+                                style={[styles.input, checkValidQuantity() ? { color: 'black' } : { color: 'red' }]}
                                 />
                         </Item>
                     </Form>

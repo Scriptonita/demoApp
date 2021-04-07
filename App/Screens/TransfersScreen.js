@@ -9,6 +9,10 @@ import TransactionsActions from '../Redux/TransactionsRedux';
 import { ok, status } from '../Utils/constants';
 
 const styles = StyleSheet.create({
+    input: {
+        padding: 0,
+        paddingLeft: 5
+    },
     footer: {
         flexDirection: 'column',
         alignItems: 'flex-end'
@@ -66,7 +70,7 @@ const TransfersScreen = ({balance, clearMessage, error, getTransactions, makeTra
                                     placeholder={placeholders.usertToTransfer} 
                                     onChangeText={(text) => setToUser(text)}
                                     value={toUser}
-                                    style={toUser && username && R.toLower(toUser) === R.toLower(username) && {color: 'red'}}
+                                    style={[styles.input, toUser && username && R.toLower(toUser) === R.toLower(username) && {color: 'red'}]}
                                 />
                             </Item>
                             <Item stackedLabel>
@@ -75,7 +79,7 @@ const TransfersScreen = ({balance, clearMessage, error, getTransactions, makeTra
                                     placeholder={placeholders.quantity}
                                     onChangeText={(text) => setQuantity(text)}
                                     value={quantity}
-                                    style={quantity && parseFloat(quantity) > parseFloat(balance) && typeof quantity === 'string' && {color: 'red'}}
+                                    style={[styles.input, quantity && parseFloat(quantity) > parseFloat(balance) && typeof quantity === 'string' && {color: 'red'}]}
                                 />
                             </Item>
                         </Form>
