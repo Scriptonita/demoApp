@@ -1,11 +1,19 @@
 import React from 'react';
 import { Body, Card, CardItem, Text } from 'native-base';
 import { connect } from 'react-redux';
+import { StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+    card: {
+        flex: 1
+    },
+});
+
 
 export const AccountData = ({balance, username}) => {
 
     return (
-        <Card>
+        <Card style={styles.card}>
             <CardItem header>
                 <Text>¡Bienvenido {username}!</Text>
             </CardItem>

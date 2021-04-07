@@ -11,6 +11,7 @@ const {Types, Creators} = createActions({
   makeTransactionSuccess: ['message'],
   makeTransactionFailure: ['error'],
   clearMessage: null,
+  clearStore: null,
 });
 
 export const TransactionsTypes = Types;
@@ -79,6 +80,19 @@ export const makeTransactionFailure = (state, { error }) => {
   return state.merge({ fetching: false, error })
 };
 
+/* ------------- CLEAR STORE ------------- */
+
+// eslint-disable-next-line no-unused-vars
+export const clearStore = (state, action) => {
+  return state.merge({ 
+    data: null,
+    fetching: false,
+    payload: null,
+    error: null,
+    message: null,
+  })
+};
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -89,4 +103,5 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.MAKE_TRANSACTION_REQUEST]: makeTransactionRequest,
   [Types.MAKE_TRANSACTION_SUCCESS]: makeTransactionSuccess,
   [Types.MAKE_TRANSACTION_FAILURE]: makeTransactionFailure,
+  [Types.CLEAR_STORE]: clearStore,
 });

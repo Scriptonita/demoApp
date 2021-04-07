@@ -8,7 +8,7 @@ import { TransactionsTypes } from '../Redux/TransactionsRedux';
 
 /* ------------- Sagas ------------- */
 
-import { signIn, signUp } from './UserSagas';
+import { logout, signIn, signUp } from './UserSagas';
 import { getTransactions, makeTransaction } from './TransactionsSagas';
 import { getDeposits, makeDeposit } from './DepositsSagas';
 
@@ -16,6 +16,8 @@ import { getDeposits, makeDeposit } from './DepositsSagas';
 
 export default function* root() {
   yield all([
+    // LOGOUT
+    takeLatest(UserTypes.LOGOUT_REQUEST, logout),
     // SIGN IN
     takeLatest(UserTypes.SIGN_IN_REQUEST, signIn),
 

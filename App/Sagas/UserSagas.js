@@ -1,6 +1,8 @@
 import { put, select } from 'redux-saga/effects';
 import BackendActions, { BackendSelectors } from '../Redux/BackendRedux';
 import UserActions from '../Redux/UserRedux';
+import DepositsActions from '../Redux/DepositsRedux';
+import TransactionsActions from '../Redux/TransactionsRedux';
 import { status as statusType } from '../Utils/constants';
 
 export function* signUp(action) {
@@ -36,6 +38,17 @@ export function* signIn(action) {
     }
   } catch (error) {
     yield put(UserActions.signInFailure(error))
+  }
+}
+
+// eslint-disable-next-line no-unused-vars
+export function* logout(action) {
+  try {
+    yield put(DepositsActions.clearStore());
+    yield put(TransactionsActions.clearStore());
+    yield put(UserActions.logoutSuccess());
+  } catch (error) {
+    put(UserActions.logoutFailure());
   }
 }
 

@@ -12,6 +12,9 @@ const {Types, Creators} = createActions({
   signInSuccess: ['data', 'message'],
   signInFailure: ['error'],
   updateUserData: ['data'],
+  logoutRequest: null,
+  logoutSuccess: null,
+  logoutFailure: null,
 });
 
 export const UserTypes = Types;
@@ -89,6 +92,29 @@ export const updateUserData = (state, { data }) => {
   return state.merge({ data })
 }
 
+/* ------------- LOGOUT ------------- */
+
+// eslint-disable-next-line no-unused-vars
+export const logoutRequest = (state, action) => {
+  return state.merge({ 
+    data: null,
+    fetching: true, 
+    payload: null,
+    error: null, 
+    logged: false, 
+    message: null
+   })
+}
+
+// eslint-disable-next-line no-unused-vars
+export const logoutSuccess = (state, action) => {
+  return state;
+}
+
+// eslint-disable-next-line no-unused-vars
+export const logoutFailure = (state, action) => {
+  return state;
+}
 
 /* ------------- Hookup Reducers To Types ------------- */
 
@@ -101,4 +127,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.SIGN_IN_SUCCESS]: signInSuccess,
   [Types.SIGN_IN_FAILURE]: signInFailure,
   [Types.UPDATE_USER_DATA]: updateUserData,
+  [Types.LOGOUT_REQUEST]: logoutRequest,
+  [Types.LOGOUT_SUCCESS]: logoutSuccess,
+  [Types.LOGOUT_FAILURE]: logoutFailure,
 });
