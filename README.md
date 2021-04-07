@@ -29,6 +29,13 @@ Project created with Expo-cli
     yarn test
 ```
 
+## Test users
+
+There are 3 predefined users that you can use to test the app.
+
+* username: Test1 // password: test1
+* username: Test2 // password: test2
+* username: Test3 // password: test3
 
 Known error:
 * There is an error in Tabs styleTab prop.
@@ -36,4 +43,3 @@ Known error:
 TODO:
 * Logout
 * Test
-* Fix styles
