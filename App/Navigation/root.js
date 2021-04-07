@@ -1,11 +1,12 @@
+/* eslint-disable react/display-name */
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import {createNativeStackNavigator} from 'react-native-screens/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { enableScreens, Screen } from 'react-native-screens';
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { enableScreens } from 'react-native-screens';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { AccountScreen, ChangeScreen, SignInScreen, SignUpScreen, TransfersScreen } from '../Screens';
-import { screens } from '../Utils/constants';
+import { routes, screens } from '../Utils/constants';
 
 const session = 'session';
 const features = 'features';
@@ -16,31 +17,26 @@ enableScreens();
 const SCREENS = {
   SignIn : {
     title: screens.signIn,
-    // eslint-disable-next-line react/display-name
     component: (props) => <SignInScreen {...props} />,
     type: session
   },
   SignUp: {
     title: signUpScreenTitle,
-    // eslint-disable-next-line react/display-name
     component: (props) => <SignUpScreen {...props} />,
     type: session
   },
   Account: {
     title: screens.account,
-    // eslint-disable-next-line react/display-name
     component: (props) => <AccountScreen {...props} />,
     type: features
   },
   Change: {
     title: screens.change,
-    // eslint-disable-next-line react/display-name
     component: (props) => <ChangeScreen {...props} />,
     type: features
   },
   Transfer: {
     title: screens.transfer,
-    // eslint-disable-next-line react/display-name
     component: (props) => <TransfersScreen {...props} />,
     type: features
   },
@@ -51,7 +47,27 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ color, size }) => {
+          let iconName;
+
+          if (route.name === routes.account) {
+            iconName = 'person-outline';
+          } else if (route.name === routes.change) {
+            iconName = 'briefcase-outline';
+          } else if (route.name === routes.transfer) {
+            iconName = 'send-outline';
+          }
+
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: 'blue',
+        inactiveTintColor: 'gray',
+      }}
+    >
         {
           Object.keys(SCREENS)
           .filter((name) => SCREENS[name].type === features)
@@ -102,14 +118,5 @@ const RootNavigator = () => {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default RootNavigator

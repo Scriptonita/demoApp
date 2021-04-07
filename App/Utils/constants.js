@@ -26,9 +26,14 @@ export const screens = {
     signUp: 'SignUp',
     account: 'Cuenta',
     change: 'Cambio',
-    wallet: 'Wallet',
     transfer: 'Transferir',
     appTabNavigator: 'AppTabNavigator',
+}
+
+export const routes = {
+    account: 'Account',
+    change: 'Change',
+    transfer: 'Transfer',
 }
 
 export const depositTypes = {
