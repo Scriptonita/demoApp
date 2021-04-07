@@ -75,7 +75,7 @@ export const backendSignInRequest = (state, {username, password}) => {
     const error = 'Usuario o contraseña incorrecta';
     const success = 'Iniciando sesión';
    
-    const userData = users.find(user => user.username === R.toLower(username) && user.password === password);
+    const userData = users.find(user => R.toLower(user.username) === R.toLower(username) && user.password === password);
 
     if (!userData) {
         return state.merge({
@@ -88,7 +88,7 @@ export const backendSignInRequest = (state, {username, password}) => {
     } 
     
     const userUpdated = R.mergeRight(userData, { token: uuidv4()});
-    const usersList = users.filter(user => user.username !== R.toLower(username));
+    const usersList = users.filter(user => R.toLower(user.username) !== R.toLower(username));
     const data = {
         id: userUpdated.id,
         username: userUpdated.username,
